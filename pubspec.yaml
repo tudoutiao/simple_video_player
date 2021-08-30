@@ -1,7 +1,6 @@
 name: simple_video_player
 description: A simple video player
 version: 0.0.1
-author: tudoutiao<iceman.44944@gmail.com>
 homepage: https://github.com/tudoutiao/simple_video_player.git
 
 environment:
