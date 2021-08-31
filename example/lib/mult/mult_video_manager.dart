@@ -1,5 +1,6 @@
 
-import '../../simple_video_player.dart';
+
+import 'package:simple_video_player/simple_video_player.dart';
 
 class MultiVideoManager{
   List<VideoManager> _videoManagers = [];

@@ -95,6 +95,7 @@ class _StateVideoPlayerWithControlWidget
     return Consumer2<VideoManagerModel, ViewManagetModel>(
         builder: (context, videoModel, viewModel, child) {
       return GestureDetector(
+
            onTap: (){
              viewModel.handleTapVideo();
            },

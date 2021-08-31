@@ -37,6 +37,9 @@ class ViewManagetModel extends ChangeNotifier {
   //是否拖动音量
   bool _isDragVolume = false;
 
+  //是否列表播放，屏幕横竖滑屏操作
+  bool _isFeed = false;
+
   final double THRESHOLDX = 10.0;
   final double THRESHOLDY = 5.0;
   Offset _startDragLocation = Offset.zero;
@@ -49,8 +52,9 @@ class ViewManagetModel extends ChangeNotifier {
   bool _mounted = true;
   Timer? _showPlayerControlsTimer;
 
-  ViewManagetModel({VideoManager? videoManager})
-      : this._videoManager = videoManager!;
+  ViewManagetModel({VideoManager? videoManager, bool? isFeed})
+      : this._videoManager = videoManager!,
+        this._isFeed = isFeed!;
 
   /// is multiple speed playback
   bool get isSpeedPlaying => _isSpeedPlaying;
@@ -82,6 +86,8 @@ class ViewManagetModel extends ChangeNotifier {
   double get brightness => _brightness;
 
   double get volume => _volume;
+
+  bool get isFeed => _isFeed;
 
   ///play status  complete
   bool get isComplete => _videoManager.videoManagerModel.isComplete;
@@ -221,13 +227,11 @@ class ViewManagetModel extends ChangeNotifier {
 
   handleShowPlayProgress() {
     handleControls(isDragPosition);
-    if(isDragPosition){
-      _isShowProgress=true;
+    if (isDragPosition) {
+      _isShowProgress = true;
     }
     _notify();
   }
-
-
 
   ///长按快进
   handleLongPressControl(double speed) {

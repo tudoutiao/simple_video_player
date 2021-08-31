@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:simple_video_player_example/mult/mult_video_manager.dart';
+import 'package:simple_video_player_example/mult/mult_video_widget.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import './multi_manager/flick_multi_manager.dart';
-import './multi_manager/flick_multi_player.dart';
-import '../utils/mock_data.dart';
+
+import 'mock_data.dart';
+void main() => runApp(const VideoPlayerApp());
+
+class VideoPlayerApp extends StatelessWidget {
+  const VideoPlayerApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  MaterialApp(
+      title: 'Video Player Demo',
+      home: Scaffold (
+        body: FeedPlayer(),
+      ),
+    );
+  }
+}
 
 class FeedPlayer extends StatefulWidget {
   FeedPlayer({Key? key}) : super(key: key);
@@ -14,21 +30,21 @@ class FeedPlayer extends StatefulWidget {
 class _FeedPlayerState extends State<FeedPlayer> {
   List items = mockData['items'];
 
-  late FlickMultiManager flickMultiManager;
+  late MultiVideoManager multiManager;
 
   @override
   void initState() {
     super.initState();
-    flickMultiManager = FlickMultiManager();
+    multiManager = MultiVideoManager();
   }
 
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: ObjectKey(flickMultiManager),
+      key: ObjectKey(multiManager),
       onVisibilityChanged: (visibility) {
         if (visibility.visibleFraction == 0 && this.mounted) {
-          flickMultiManager.pause();
+          multiManager.pause();
         }
       },
       child: Container(
@@ -39,13 +55,16 @@ class _FeedPlayerState extends State<FeedPlayer> {
           itemCount: items.length,
           itemBuilder: (context, index) {
             return Container(
-                height: 400,
+                height: 200,
                 margin: EdgeInsets.all(2),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: FlickMultiPlayer(
+                  child:
+                  // Text("===${items[index]['trailer_url']}===="),
+                  MultiVideoPlayerWidget(
+                    index: index,
                     url: items[index]['trailer_url'],
-                    flickMultiManager: flickMultiManager,
+                    multiVideoManager: multiManager,
                     image: items[index]['image'],
                   ),
                 ));

@@ -17,10 +17,11 @@ class VideoManager {
   ViewManagetModel? _viewManagerModel;
   BuildContext? _context;
   Size? _screenSize;
+  bool? isFeed;
 
-  VideoManager({VideoPlayerController? videoPlayerController}) {
+  VideoManager({VideoPlayerController? videoPlayerController,this.isFeed}) {
     _videoManagerModel = VideoManagerModel(videoManager: this);
-    _viewManagerModel=ViewManagetModel(videoManager: this);
+    _viewManagerModel=ViewManagetModel(videoManager: this,isFeed:isFeed??false);
     viewManagerModel.currentBrightness;
     viewManagerModel.currentVolume;
     _videoManagerModel!._handleChangeVideo(videoPlayerController!);
