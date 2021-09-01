@@ -95,10 +95,9 @@ class _StateVideoPlayerWithControlWidget
     return Consumer2<VideoManagerModel, ViewManagetModel>(
         builder: (context, videoModel, viewModel, child) {
       return GestureDetector(
-
-           onTap: (){
-             viewModel.handleTapVideo();
-           },
+          onTap: () {
+            viewModel.handleTapVideo();
+          },
           onLongPressStart: (detail) {
             videoModel.setPlaybackSpeed(2.0);
           },
@@ -113,9 +112,8 @@ class _StateVideoPlayerWithControlWidget
                 viewModel.dragPosition(
                     DragState.HORIZONTAL_UPDATE, v.localPosition)
               },
-          onHorizontalDragEnd: (v) => {
-                viewModel.dragPosition(DragState.HORIZONTAL_END, Offset.zero)
-              },
+          onHorizontalDragEnd: (v) =>
+              {viewModel.dragPosition(DragState.HORIZONTAL_END, Offset.zero)},
           onVerticalDragStart: (v) => {
                 viewModel.dragPosition(
                     DragState.VERTICAL_START, v.localPosition)
@@ -124,9 +122,8 @@ class _StateVideoPlayerWithControlWidget
                 viewModel.dragPosition(
                     DragState.VERTICAL_UPDATE, v.localPosition)
               },
-          onVerticalDragEnd: (v) => {
-                viewModel.dragPosition(DragState.VERTICAL_END, Offset.zero)
-              },
+          onVerticalDragEnd: (v) =>
+              {viewModel.dragPosition(DragState.VERTICAL_END, Offset.zero)},
           child: IconTheme(
               data: widget.iconThemeData,
               child: LayoutBuilder(builder: (context, size) {

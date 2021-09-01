@@ -54,7 +54,6 @@ class _FeedPlayerState extends State<FeedPlayerDemo> {
     return VisibilityDetector(
       key: ObjectKey(multiManager),
       onVisibilityChanged: (visibility) {
-        print('onVisibilityChanged------${visibility.visibleFraction}');
         multiManager.autoPlay();
         if (visibility.visibleFraction == 0 && this.mounted) {
           multiManager.pause();
@@ -63,10 +62,10 @@ class _FeedPlayerState extends State<FeedPlayerDemo> {
       child: NotificationListener(
         onNotification: (notification) {
           if (notification is ScrollStartNotification) {
-            print('----------ScrollStartNotification------');
+            // print('----------ScrollStartNotification------');
           } else if (notification is ScrollUpdateNotification) {
           } else if (notification is ScrollEndNotification) {
-            print('----------ScrollEndNotification------');
+            // print('----------ScrollEndNotification------');
             multiManager.autoPlay();
           }
           return false;

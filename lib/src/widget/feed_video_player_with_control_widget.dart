@@ -124,11 +124,11 @@ class _StateFeedVideoPlayerWithControlWidget
                         Positioned.fill(
                           child: Stack(
                             children: <Widget>[
-                              if (videoModel.videoPlayerValue!.hasError ==
-                                      false &&
-                                  videoModel.videoPlayerValue!.isInitialized ==
-                                      false)
-                                widget.playerLoadingFallback,
+                              // if (videoModel.videoPlayerValue!.hasError ==
+                              //         false &&
+                              //     videoModel.videoPlayerValue!.isInitialized ==
+                              //         false)
+                              //   widget.playerLoadingFallback,
                               if (videoModel.videoPlayerValue!.hasError == true)
                                 widget.playerErrorFallback,
                               widget.controls ?? Container(),
