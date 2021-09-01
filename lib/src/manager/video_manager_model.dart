@@ -126,6 +126,8 @@ class VideoManagerModel extends ChangeNotifier {
 
   /// Pause the video.
   Future<void> pause() async {
+    if(!videoPlayerValue!.isPlaying)
+      return;
     await videoPlayerController!.pause();
     _notify();
   }

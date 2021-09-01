@@ -10,6 +10,7 @@ import 'package:video_player/video_player.dart';
 import 'package:volume_controller/volume_controller.dart';
 
 part 'video_manager_model.dart';
+
 part 'view_manager_model.dart';
 
 class VideoManager {
@@ -18,21 +19,30 @@ class VideoManager {
   BuildContext? _context;
   Size? _screenSize;
   bool? isFeed;
+  int? _index;
 
-  VideoManager({VideoPlayerController? videoPlayerController,this.isFeed}) {
+  VideoManager(
+      {VideoPlayerController? videoPlayerController,
+      this.isFeed,
+      int index = -1}) {
     _videoManagerModel = VideoManagerModel(videoManager: this);
-    _viewManagerModel=ViewManagetModel(videoManager: this,isFeed:isFeed??false);
+    _viewManagerModel =
+        ViewManagetModel(videoManager: this, isFeed: isFeed ?? false);
     viewManagerModel.currentBrightness;
     viewManagerModel.currentVolume;
     _videoManagerModel!._handleChangeVideo(videoPlayerController!);
+    _index = index;
   }
 
   VideoManagerModel get videoManagerModel => _videoManagerModel!;
+
   ViewManagetModel get viewManagerModel => _viewManagerModel!;
 
   BuildContext? get context => _context;
 
   Size? get screenSize => _screenSize;
+
+  int? get index => _index;
 
   registerContext(BuildContext context) {
     this._context = context;

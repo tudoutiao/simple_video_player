@@ -4,6 +4,7 @@ import 'package:simple_video_player_example/mult/mult_video_widget.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import 'mock_data.dart';
+
 void main() => runApp(const VideoPlayerApp());
 
 class VideoPlayerApp extends StatelessWidget {
@@ -11,9 +12,9 @@ class VideoPlayerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'Video Player Demo',
-      home: Scaffold (
+      home: Scaffold(
         body: FeedPlayer(),
       ),
     );
@@ -31,11 +32,21 @@ class _FeedPlayerState extends State<FeedPlayer> {
   List items = mockData['items'];
 
   late MultiVideoManager multiManager;
+  late ScrollController controller;
 
   @override
   void initState() {
     super.initState();
     multiManager = MultiVideoManager();
+    controller = ScrollController()
+      ..addListener(() {
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -43,12 +54,26 @@ class _FeedPlayerState extends State<FeedPlayer> {
     return VisibilityDetector(
       key: ObjectKey(multiManager),
       onVisibilityChanged: (visibility) {
+        print('onVisibilityChanged------${visibility.visibleFraction}');
+        multiManager.autoPlay();
         if (visibility.visibleFraction == 0 && this.mounted) {
           multiManager.pause();
         }
       },
-      child: Container(
+      child: NotificationListener(
+        onNotification: (notification) {
+          if (notification is ScrollStartNotification) {
+            print('----------ScrollStartNotification------');
+          } else if (notification is ScrollUpdateNotification) {
+          } else if (notification is ScrollEndNotification) {
+            print('----------ScrollEndNotification------');
+            multiManager.autoPlay();
+          }
+          return false;
+        },
         child: ListView.separated(
+          controller: controller,
+          cacheExtent: 1.0,
           separatorBuilder: (context, int) => Container(
             height: 50,
           ),
@@ -60,8 +85,7 @@ class _FeedPlayerState extends State<FeedPlayer> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child:
-                  // Text("===${items[index]['trailer_url']}===="),
-                  MultiVideoPlayerWidget(
+                      MultiVideoPlayerWidget(
                     index: index,
                     url: items[index]['trailer_url'],
                     multiVideoManager: multiManager,

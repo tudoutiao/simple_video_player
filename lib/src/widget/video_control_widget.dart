@@ -55,7 +55,7 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 5),
                       child: Text(
-                        "video title",
+                        "第${widget._videoManager!.index}个",
                         style: TextStyle(fontSize: 15),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

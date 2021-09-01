@@ -27,6 +27,7 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
   @override
   void initState() {
     videoManager = VideoManager(
+        index: widget.index!,
         isFeed: true,
         videoPlayerController: VideoPlayerController.network(widget.url));
     widget.multiVideoManager.init(videoManager);
@@ -44,9 +45,11 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
     return VisibilityDetector(
       key: ObjectKey(videoManager),
       onVisibilityChanged: (visiblityInfo) {
-        print("${widget.index}==${visiblityInfo.visibleFraction}");
-        if (visiblityInfo.visibleFraction > 0.9) {
-          widget.multiVideoManager.play(videoManager);
+        print("${widget.index}********${visiblityInfo.visibleFraction}");
+        if (visiblityInfo.visibleFraction == 1.0) {
+          widget.multiVideoManager.addData(videoManager);
+        } else {
+          widget.multiVideoManager.removeData(videoManager);
         }
       },
       child: Container(
@@ -54,7 +57,7 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
         height: 200,
         child: VideoPlayerWidget(
             videoManager: videoManager,
-            videoWithControls: VideoPlayerWithControlWidget(
+            videoWithControls: FeedVideoPlayerWithControlWidget(
               controls: VideoControlWidget(videoManager: videoManager),
             )),
       ),
