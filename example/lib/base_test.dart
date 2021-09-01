@@ -15,13 +15,13 @@ class VideoPlayerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Video Player Demo',
-      home: VideoPlayerScreen(),
+      home: VideoPlayerDemo(),
     );
   }
 }
 
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({
+class VideoPlayerDemo extends StatefulWidget {
+  const VideoPlayerDemo({
     Key? key,
     this.systemUIOverlay = SystemUiOverlay.values,
     this.systemUIOverlayFullscreen = const [],
@@ -53,7 +53,7 @@ class VideoPlayerScreen extends StatefulWidget {
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _VideoPlayerScreenState extends State<VideoPlayerDemo> {
   VideoManager? videoManager;
   OverlayEntry? _overlayEntry;
 
@@ -198,11 +198,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       child: Consumer<VideoManagerModel>(
         builder: (context, model, child) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Butterfly Video'),
-            ),
-            // Use a FutureBuilder to display a loading spinner while waiting for the
-            // VideoPlayerController to finish initializing.
             body: FutureBuilder(
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

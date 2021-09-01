@@ -4,11 +4,11 @@ import 'package:video_player/video_player.dart';
 
 
 void main() {
-  runApp(const VideoPlayerApp());
+  runApp(const MyVideoPlayerDemo());
 }
 
-class VideoPlayerApp extends StatelessWidget {
-  const VideoPlayerApp({Key? key}) : super(key: key);
+class MyVideoPlayerDemo extends StatelessWidget {
+  const MyVideoPlayerDemo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   @override
   void dispose() {
     super.dispose();
+    videoManager.videoManagerModel.pause();
   }
 
   @override

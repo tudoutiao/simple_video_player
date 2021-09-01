@@ -15,20 +15,20 @@ class VideoPlayerApp extends StatelessWidget {
     return MaterialApp(
       title: 'Video Player Demo',
       home: Scaffold(
-        body: FeedPlayer(),
+        body: FeedPlayerDemo(),
       ),
     );
   }
 }
 
-class FeedPlayer extends StatefulWidget {
-  FeedPlayer({Key? key}) : super(key: key);
+class FeedPlayerDemo extends StatefulWidget {
+  FeedPlayerDemo({Key? key}) : super(key: key);
 
   @override
   _FeedPlayerState createState() => _FeedPlayerState();
 }
 
-class _FeedPlayerState extends State<FeedPlayer> {
+class _FeedPlayerState extends State<FeedPlayerDemo> {
   List items = mockData['items'];
 
   late MultiVideoManager multiManager;
