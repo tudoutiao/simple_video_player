@@ -38,9 +38,7 @@ class _FeedPlayerState extends State<FeedPlayerDemo> {
   void initState() {
     super.initState();
     multiManager = MultiVideoManager();
-    controller = ScrollController()
-      ..addListener(() {
-      });
+    controller = ScrollController()..addListener(() {});
   }
 
   @override
@@ -74,17 +72,16 @@ class _FeedPlayerState extends State<FeedPlayerDemo> {
           controller: controller,
           cacheExtent: 1.0,
           separatorBuilder: (context, int) => Container(
-            height: 50,
+            height: 20,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) {
             return Container(
-                height: 200,
+                height: 230,
                 margin: EdgeInsets.all(2),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child:
-                      MultiVideoPlayerWidget(
+                  child: MultiVideoPlayerWidget(
                     index: index,
                     url: items[index]['trailer_url'],
                     multiVideoManager: multiManager,

@@ -20,10 +20,12 @@ class VideoManager {
   Size? _screenSize;
   bool? isFeed;
   int? _index;
+  String? _thumImage;
 
   VideoManager(
       {VideoPlayerController? videoPlayerController,
       this.isFeed,
+      String? thumImage,
       int index = -1}) {
     _videoManagerModel = VideoManagerModel(videoManager: this);
     _viewManagerModel =
@@ -32,11 +34,14 @@ class VideoManager {
     viewManagerModel.currentVolume;
     _videoManagerModel!._handleChangeVideo(videoPlayerController!);
     _index = index;
+    _thumImage = thumImage;
   }
 
   VideoManagerModel get videoManagerModel => _videoManagerModel!;
 
   ViewManagetModel get viewManagerModel => _viewManagerModel!;
+
+  String get thumImage => _thumImage!;
 
   BuildContext? get context => _context;
 

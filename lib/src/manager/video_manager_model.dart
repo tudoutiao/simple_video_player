@@ -120,8 +120,8 @@ class VideoManagerModel extends ChangeNotifier {
   Future<void> play() async {
     _currentVideoEnded = false;
     await videoPlayerController!.play();
-    _videoManager!.viewManagerModel.handleShowPlayerControls();
     _notify();
+    _videoManager!.viewManagerModel.handleShowPlayerControls();
   }
 
   /// Pause the video.

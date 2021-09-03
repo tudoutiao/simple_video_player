@@ -28,6 +28,7 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
   void initState() {
     videoManager = VideoManager(
         index: widget.index!,
+        thumImage: widget.image,
         isFeed: true,
         videoPlayerController: VideoPlayerController.network(widget.url));
     widget.multiVideoManager.init(videoManager);
@@ -54,10 +55,15 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
       },
       child: Container(
         width: double.infinity,
-        height: 200,
+        height: 230,
         child: VideoPlayerWidget(
             videoManager: videoManager,
             videoWithControls: FeedVideoPlayerWithControlWidget(
+              playerLoadingFallback: Center(
+                  child: Image.asset(
+                    widget.image!,
+                    fit: BoxFit.fitWidth,
+                  )),
               controls: VideoControlWidget(videoManager: videoManager),
             )),
       ),

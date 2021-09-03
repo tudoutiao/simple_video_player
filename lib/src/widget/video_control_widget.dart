@@ -41,6 +41,12 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Positioned.fill(
+                  //   child: Image.asset(
+                  //     widget._videoManager!.thumImage,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
                   if (viewModel.isShowBack)
                     IconButton(
                       padding: EdgeInsets.all(1),

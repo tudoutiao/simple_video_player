@@ -6,7 +6,7 @@ description: Demonstrates how to use the simple_video_player plugin.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.12.0-0 <3.0.0'
 
 dependencies:
   flutter:
@@ -22,4 +22,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  assets:
+   - images/iceland_poster.jpg
+   - images/9th_may_poster.jpg
+   - images/rio_from_above_poster.jpg
+   - images/the_valley_poster.jpg
