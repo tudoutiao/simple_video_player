@@ -72,12 +72,15 @@ class VideoManagerModel extends ChangeNotifier {
       state = PlayState.complete;
     } else if (_videoPlayerValue!.isInitialized &&
         !_videoPlayerValue!.isPlaying) {
-      //暂停播放
-      state = PlayState.pause;
+      if (_videoPlayerValue!.position == 0) {
+        state = PlayState.replay;
+      } else {
+        state == PlayState.pause;
+      }
     }
 
     if (null == state || playState != state) {
-      _playState = state!;
+      _playState = state!!;
       _videoManager!.viewManagerModel.handleChangeStateControlView();
     }
   }
@@ -127,6 +130,7 @@ class VideoManagerModel extends ChangeNotifier {
 
   /// Toggle play.
   void togglePlay() {
+    _videoManager!.viewManagerModel.handleTogglePlay();
     isPlaying ? pause() : play();
   }
 
@@ -134,7 +138,6 @@ class VideoManagerModel extends ChangeNotifier {
   Future<void> play() async {
     await videoPlayerController!.play();
     _notify();
-    // _videoManager!.viewManagerModel.handleShowPlayerControls();
   }
 
   /// Pause the video.

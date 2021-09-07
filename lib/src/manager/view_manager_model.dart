@@ -173,55 +173,61 @@ class ViewManagetModel extends ChangeNotifier {
     return marginBottom;
   }
 
+  handleTogglePlay() {
+    if (_videoManager.videoManagerModel.playState == PlayState.complete) {
+      //重播
+      _isShowProgress = false;
+      _isShowPlayButton=false;
+      _notify();
+    }
+  }
+
   handleTapVideo() {
-    // if (isShowControl) {
-    //   _isShowControl = false;
-    //   _showPlayerControlsTimer?.cancel();
-    //   _notify();
-    // } else {
-    // If playerControls are not showing,
-    // show player controls.
-    handleShowPlayerControls();
-    // }
+    switch (_videoManager.videoManagerModel.playState) {
+      case PlayState.complete:
+        {
+          break;
+        }
+    }
   }
 
   ///isShowControl:点击播放界面  显示隐藏所有控制器
   ///手动操作时更新界面
   handleShowPlayerControls() {
-    _showPlayerControlsTimer?.cancel();
-
-    _isShowControl = !isShowControl;
-    if (_videoManager.videoManagerModel.isVideoInitialized &&
-        _videoManager.videoManagerModel.isPlaying) {
-      print('showPlayButton--------4');
-      _isShowProgress = true;
-      _isShowPlayButton = true;
-      _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
-        _isShowPlayButton = false;
-        _isShowControl = false;
-        _notify();
-      });
-    } else if (_videoManager.videoManagerModel.playState ==
-        PlayState.complete) {
-      print('showPlayButton--------3');
-      _isShowControl = true;
-      _isShowProgress = true;
-      _isShowPlayButton = true;
-    } else {
-      print('showPlayButton--------2');
-      print("${_videoManager.videoManagerModel.videoPlayerValue}");
-      //初始化完成后默认显示播放按钮和标题
-      _isShowControl = true;
-      _isShowPlayButton = true;
-      if (_videoManager.videoManagerModel.isPlaying) {
-        _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
-          _isShowPlayButton = false;
-          _isShowControl = false;
-          _notify();
-        });
-      }
-    }
-    _notify();
+    // _showPlayerControlsTimer?.cancel();
+    //
+    // _isShowControl = !isShowControl;
+    // if (_videoManager.videoManagerModel.isVideoInitialized &&
+    //     _videoManager.videoManagerModel.isPlaying) {
+    //   print('showPlayButton--------4');
+    //   _isShowProgress = true;
+    //   _isShowPlayButton = true;
+    //   _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
+    //     _isShowPlayButton = false;
+    //     _isShowControl = false;
+    //     _notify();
+    //   });
+    // } else if (_videoManager.videoManagerModel.playState ==
+    //     PlayState.complete) {
+    //   print('showPlayButton--------3');
+    //   _isShowControl = true;
+    //   _isShowProgress = true;
+    //   _isShowPlayButton = true;
+    // } else {
+    //   print('showPlayButton--------2');
+    //   print("${_videoManager.videoManagerModel.videoPlayerValue}");
+    //   //初始化完成后默认显示播放按钮和标题
+    //   _isShowControl = true;
+    //   _isShowPlayButton = true;
+    //   if (_videoManager.videoManagerModel.isPlaying) {
+    //     _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
+    //       _isShowPlayButton = false;
+    //       _isShowControl = false;
+    //       _notify();
+    //     });
+    //   }
+    // }
+    // _notify();
   }
 
   ///自然播放时界面更新
@@ -230,12 +236,14 @@ class ViewManagetModel extends ChangeNotifier {
       case PlayState.init:
         {
           _isShowPlayButton = true;
+          _isShowProgress = false;
           break;
         }
       case PlayState.prepare:
         {
           _isShowTitle = false;
           _isShowPlayButton = false;
+          _isShowProgress = false;
           break;
         }
       case PlayState.playing:
