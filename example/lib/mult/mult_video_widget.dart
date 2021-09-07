@@ -59,11 +59,11 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
         child: VideoPlayerWidget(
             videoManager: videoManager,
             videoWithControls: FeedVideoPlayerWithControlWidget(
-              playerLoadingFallback: Center(
-                  child: Image.asset(
-                    widget.image!,
-                    fit: BoxFit.fitWidth,
-                  )),
+              // playerLoadingFallback: Center(
+              //     child: Image.asset(
+              //       widget.image!,
+              //       fit: BoxFit.fitWidth,
+              //     )),
               controls: VideoControlWidget(videoManager: videoManager),
             )),
       ),

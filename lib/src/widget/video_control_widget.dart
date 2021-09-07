@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_video_player/src/manager/video_manager.dart';
+import 'package:simple_video_player/src/util/play_state.dart';
 
 import 'anim/auto_hide_widget.dart';
 import 'play_progress.dart';
@@ -86,7 +87,7 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                 icon: Icon(
                   viewModel.isPlaying
                       ? Icons.pause
-                      : (viewModel.isComplete
+                      : (videoModel.playState==PlayState.complete
                           ? Icons.replay
                           : Icons.play_arrow),
                   semanticLabel: "play/pause/replay",
@@ -191,7 +192,7 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                           height: 5,
                           handleRadius: 5,
                           padding: EdgeInsets.symmetric(
-                            horizontal: 8.0,
+                            horizontal: 10.0,
                             vertical: 8,
                           ),
                           backgroundColor: Colors.white24,

@@ -90,9 +90,6 @@ class ViewManagetModel extends ChangeNotifier {
   bool get isFeed => _isFeed;
 
   ///play status  complete
-  bool get isComplete => _videoManager.videoManagerModel.isComplete;
-
-  ///play status  complete
   bool get isPlaying => _videoManager.videoManagerModel.isPlaying;
 
   Duration get curPosition =>
@@ -189,13 +186,14 @@ class ViewManagetModel extends ChangeNotifier {
   }
 
   ///isShowControl:点击播放界面  显示隐藏所有控制器
-  ///
+  ///手动操作时更新界面
   handleShowPlayerControls() {
     _showPlayerControlsTimer?.cancel();
 
     _isShowControl = !isShowControl;
     if (_videoManager.videoManagerModel.isVideoInitialized &&
         _videoManager.videoManagerModel.isPlaying) {
+      print('showPlayButton--------4');
       _isShowProgress = true;
       _isShowPlayButton = true;
       _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
@@ -203,14 +201,60 @@ class ViewManagetModel extends ChangeNotifier {
         _isShowControl = false;
         _notify();
       });
-    } else if (_videoManager.videoManagerModel.isComplete) {
+    } else if (_videoManager.videoManagerModel.playState ==
+        PlayState.complete) {
+      print('showPlayButton--------3');
       _isShowControl = true;
       _isShowProgress = true;
       _isShowPlayButton = true;
     } else {
+      print('showPlayButton--------2');
+      print("${_videoManager.videoManagerModel.videoPlayerValue}");
       //初始化完成后默认显示播放按钮和标题
       _isShowControl = true;
       _isShowPlayButton = true;
+      if (_videoManager.videoManagerModel.isPlaying) {
+        _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
+          _isShowPlayButton = false;
+          _isShowControl = false;
+          _notify();
+        });
+      }
+    }
+    _notify();
+  }
+
+  ///自然播放时界面更新
+  handleChangeStateControlView() {
+    switch (_videoManager.videoManagerModel.playState) {
+      case PlayState.init:
+        {
+          _isShowPlayButton = true;
+          break;
+        }
+      case PlayState.prepare:
+        {
+          _isShowTitle = false;
+          _isShowPlayButton = false;
+          break;
+        }
+      case PlayState.playing:
+        {
+          break;
+        }
+      case PlayState.pause:
+        {
+          _isShowControl = true;
+          _isShowPlayButton = true;
+          break;
+        }
+      case PlayState.complete:
+        {
+          _isShowControl = true;
+          _isShowProgress = true;
+          _isShowPlayButton = true;
+          break;
+        }
     }
     _notify();
   }
@@ -247,6 +291,7 @@ class ViewManagetModel extends ChangeNotifier {
       _isShowProgress = false;
       _isShowTitle = false;
     } else {
+      print('showPlayButton--------1');
       _isShowControl = false;
       _isShowPlayButton = true;
       _isShowProgress = true;

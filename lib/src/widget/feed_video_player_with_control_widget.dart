@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_video_player/src/util/play_state.dart';
 import 'package:simple_video_player/src/util/video_control_util.dart';
 import 'package:video_player/video_player.dart';
 
@@ -70,7 +71,8 @@ class FeedVideoPlayerWithControlWidget extends StatefulWidget {
   final Widget? controls;
 
   @override
-  State<StatefulWidget> createState() => _StateFeedVideoPlayerWithControlWidget();
+  State<StatefulWidget> createState() =>
+      _StateFeedVideoPlayerWithControlWidget();
 }
 
 class _StateFeedVideoPlayerWithControlWidget
@@ -126,8 +128,7 @@ class _StateFeedVideoPlayerWithControlWidget
                             children: <Widget>[
                               if (videoModel.videoPlayerValue!.hasError ==
                                       false &&
-                                  videoModel.videoPlayerValue!.isInitialized ==
-                                      false)
+                                  videoModel.playState == PlayState.prepare)
                                 widget.playerLoadingFallback,
                               if (videoModel.videoPlayerValue!.hasError == true)
                                 widget.playerErrorFallback,

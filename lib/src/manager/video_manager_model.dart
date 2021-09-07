@@ -8,7 +8,7 @@ class VideoManagerModel extends ChangeNotifier {
   bool _mounted = true;
   bool _isMute = false;
   bool _isFullscreen = false;
-  bool _currentVideoEnded = false;
+  PlayState _playState = PlayState.init;
 
   VideoManagerModel({VideoManager? videoManager})
       : this._videoManager = videoManager!;
@@ -18,8 +18,7 @@ class VideoManagerModel extends ChangeNotifier {
   /// Is player in full-screen.
   bool get isFullscreen => _isFullscreen;
 
-  ///play status  complete
-  bool get isComplete => _currentVideoEnded;
+  PlayState get playState => _playState;
 
   /// [videoPlayerController.value]
   VideoPlayerValue? get videoPlayerValue => _videoPlayerValue!;
@@ -28,7 +27,7 @@ class VideoManagerModel extends ChangeNotifier {
   VideoPlayerController? get videoPlayerController => _videoPlayerController;
 
   /// Is current video initialized.
-  ///
+  /// true:开始播放
   bool get isVideoInitialized =>
       videoPlayerController?.value.isInitialized ?? false;
 
@@ -53,19 +52,34 @@ class VideoManagerModel extends ChangeNotifier {
 
   _videoListener() {
     _videoPlayerValue = videoPlayerController!.value;
-    if (videoPlayerValue != null &&
-        // videoPlayerValue!.position != null &&
-        videoPlayerValue!.duration != null &&
-        (videoPlayerValue!.position) >= videoPlayerValue!.duration) {
+    PlayState? state;
+    // print("${_videoPlayerValue}");
+    if (!_videoPlayerValue!.isInitialized && !_videoPlayerValue!.isPlaying) {
+      //初始化
+      state = PlayState.init;
+    } else if (!_videoPlayerValue!.isInitialized &&
+        _videoPlayerValue!.isPlaying) {
+      //点击播放按钮
+      state = PlayState.prepare;
+    } else if (_videoPlayerValue!.isInitialized &&
+        _videoPlayerValue!.isPlaying) {
+      //开始播放
+      state = PlayState.playing;
+    } else if (_videoPlayerValue!.isInitialized &&
+        !_videoPlayerValue!.isPlaying &&
+        _videoPlayerValue!.position == _videoPlayerValue!.duration) {
+      //播放完成
+      state = PlayState.complete;
+    } else if (_videoPlayerValue!.isInitialized &&
+        !_videoPlayerValue!.isPlaying) {
+      //暂停播放
+      state = PlayState.pause;
     }
 
-    if (_videoPlayerValue!.position == _videoPlayerValue!.duration &&
-        videoPlayerValue!.isInitialized) {
-      _currentVideoEnded = true;
-      _videoManager!.viewManagerModel.handleShowPlayerControls();
+    if (null == state || playState != state) {
+      _playState = state!;
+      _videoManager!.viewManagerModel.handleChangeStateControlView();
     }
-
-    if (videoPlayerValue!.isInitialized) _notify();
   }
 
   void changeVideo() async {
@@ -118,24 +132,21 @@ class VideoManagerModel extends ChangeNotifier {
 
   /// Play the video.
   Future<void> play() async {
-    _currentVideoEnded = false;
     await videoPlayerController!.play();
     _notify();
-    _videoManager!.viewManagerModel.handleShowPlayerControls();
+    // _videoManager!.viewManagerModel.handleShowPlayerControls();
   }
 
   /// Pause the video.
   Future<void> pause() async {
-    if(!videoPlayerValue!.isPlaying)
-      return;
+    if (!videoPlayerValue!.isPlaying) return;
     await videoPlayerController!.pause();
     _notify();
   }
 
   ///play speed
   Future<void> setPlaybackSpeed(double speed) async {
-    if(!isPlaying)
-      return;
+    if (!isPlaying) return;
     await _videoPlayerController!.setPlaybackSpeed(speed);
     _videoManager!.viewManagerModel.handleLongPressControl(speed);
     _notify();
