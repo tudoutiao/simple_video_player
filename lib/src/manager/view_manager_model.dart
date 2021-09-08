@@ -173,6 +173,7 @@ class ViewManagetModel extends ChangeNotifier {
     return marginBottom;
   }
 
+  ///点击播放按钮更新ui
   handleTogglePlay() {
     if (_videoManager.videoManagerModel.playState == PlayState.complete) {
       //重播
@@ -183,8 +184,20 @@ class ViewManagetModel extends ChangeNotifier {
     }
   }
 
+  ///isShowControl:点击播放界面  显示隐藏所有控制器
+  ///手势操作更新ui:点击、横向滑动、纵向滑动
   handleTapVideo() {
     switch (_videoManager.videoManagerModel.playState) {
+      case PlayState.init:
+        {
+          _showPlayerControlsTimer?.cancel();
+          _isShowControl = true;
+          _isShowTitle = true;
+          _isShowProgress = false;
+          _isShowPlayButton = true;
+          _notify();
+          break;
+        }
       case PlayState.complete:
         {
           break;
@@ -215,44 +228,6 @@ class ViewManagetModel extends ChangeNotifier {
     }
   }
 
-  ///isShowControl:点击播放界面  显示隐藏所有控制器
-  ///手动操作时更新界面
-  handleShowPlayerControls() {
-    // _showPlayerControlsTimer?.cancel();
-    //
-    // _isShowControl = !isShowControl;
-    // if (_videoManager.videoManagerModel.isVideoInitialized &&
-    //     _videoManager.videoManagerModel.isPlaying) {
-    //   print('showPlayButton--------4');
-    //   _isShowProgress = true;
-    //   _isShowPlayButton = true;
-    //   _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
-    //     _isShowPlayButton = false;
-    //     _isShowControl = false;
-    //     _notify();
-    //   });
-    // } else if (_videoManager.videoManagerModel.playState ==
-    //     PlayState.complete) {
-    //   print('showPlayButton--------3');
-    //   _isShowControl = true;
-    //   _isShowProgress = true;
-    //   _isShowPlayButton = true;
-    // } else {
-    //   print('showPlayButton--------2');
-    //   print("${_videoManager.videoManagerModel.videoPlayerValue}");
-    //   //初始化完成后默认显示播放按钮和标题
-    //   _isShowControl = true;
-    //   _isShowPlayButton = true;
-    //   if (_videoManager.videoManagerModel.isPlaying) {
-    //     _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
-    //       _isShowPlayButton = false;
-    //       _isShowControl = false;
-    //       _notify();
-    //     });
-    //   }
-    // }
-    // _notify();
-  }
 
   ///自然播放时界面更新
   handleChangeStateControlView() {
@@ -272,6 +247,8 @@ class ViewManagetModel extends ChangeNotifier {
         }
       case PlayState.playing:
         {
+          _isShowTitle = false;
+          _isShowPlayButton = false;
           break;
         }
       case PlayState.pause:
@@ -323,7 +300,6 @@ class ViewManagetModel extends ChangeNotifier {
       _isShowProgress = false;
       _isShowTitle = false;
     } else {
-      print('showPlayButton--------1');
       _isShowControl = false;
       _isShowPlayButton = true;
       _isShowProgress = true;

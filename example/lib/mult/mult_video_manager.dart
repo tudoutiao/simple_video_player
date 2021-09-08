@@ -30,7 +30,7 @@ class MultiVideoManager {
 
   removeData(VideoManager? videoManager) {
     if (null == videoManager) return;
-    videoManager.videoManagerModel.pause();
+    videoManager.videoManagerModel.pauseListItem();
     if (_visibleMangers.contains(videoManager)) {
       if (_activeManager == videoManager) {
         _activeManager = null;
@@ -43,7 +43,7 @@ class MultiVideoManager {
     if (_visibleMangers.length == 0 ||
         (null != _activeManager && _activeManager == _visibleMangers[0])) return;
     if (null != _activeManager) {
-      _activeManager!.videoManagerModel.pause();
+      _activeManager!.videoManagerModel.pauseListItem();
     }
     _activeManager = _visibleMangers[0];
     _activeManager!.videoManagerModel.play();
@@ -51,7 +51,7 @@ class MultiVideoManager {
 
 
   pause() {
-    _activeManager?.videoManagerModel?.pause();
+    _activeManager?.videoManagerModel?.pauseListItem();
   }
 
 }

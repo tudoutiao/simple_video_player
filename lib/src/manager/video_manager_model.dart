@@ -78,10 +78,14 @@ class VideoManagerModel extends ChangeNotifier {
         state == PlayState.pause;
       }
     }
-
     if (null == state || playState != state) {
       _playState = state!!;
       _videoManager!.viewManagerModel.handleChangeStateControlView();
+    }
+
+    if (_videoManager!.viewManagerModel.isShowProgress &&
+        _playState == PlayState.playing) {
+      _notify();
     }
   }
 
@@ -142,9 +146,15 @@ class VideoManagerModel extends ChangeNotifier {
 
   /// Pause the video.
   Future<void> pause() async {
-    if (!videoPlayerValue!.isPlaying) return;
     await videoPlayerController!.pause();
-    _notify();
+    _videoManager!.viewManagerModel.handleTapVideo();
+  }
+
+  ///列表播放时，移出屏幕，停止播放,
+  Future<void> pauseListItem() async {
+    await videoPlayerController!.pause();
+    _playState = PlayState.init;
+    _videoManager!.viewManagerModel.handleTapVideo();
   }
 
   ///play speed
@@ -160,6 +170,7 @@ class VideoManagerModel extends ChangeNotifier {
     if (videoPlayerValue!.isInitialized) {
       Duration position = new Duration(milliseconds: pos.toInt());
       await _videoPlayerController!.seekTo(position);
+      _notify();
     }
   }
 
