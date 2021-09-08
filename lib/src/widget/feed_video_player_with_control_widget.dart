@@ -5,8 +5,8 @@ import 'package:simple_video_player/src/util/play_state.dart';
 import 'package:simple_video_player/src/util/video_control_util.dart';
 import 'package:video_player/video_player.dart';
 
-import '../native_video_player.dart';
 import '../manager/video_manager.dart';
+import '../native_video_player.dart';
 
 class FeedVideoPlayerWithControlWidget extends StatefulWidget {
   const FeedVideoPlayerWithControlWidget({
@@ -106,6 +106,40 @@ class _StateFeedVideoPlayerWithControlWidget
           onLongPressEnd: (detail) {
             videoModel.setPlaybackSpeed(1.0);
           },
+          onHorizontalDragStart: videoModel.isFullscreen
+              ? (v) => {
+                    viewModel.dragPosition(
+                        DragState.HORIZONTAL_START, v.localPosition),
+                  }
+              : null,
+          onHorizontalDragUpdate: videoModel.isFullscreen
+              ? (v) => {
+                    viewModel.dragPosition(
+                        DragState.HORIZONTAL_UPDATE, v.localPosition)
+                  }
+              : null,
+          onHorizontalDragEnd: videoModel.isFullscreen
+              ? (v) => {
+                    viewModel.dragPosition(
+                        DragState.HORIZONTAL_END, Offset.zero)
+                  }
+              : null,
+          onVerticalDragStart: videoModel.isFullscreen
+              ? (v) => {
+                    viewModel.dragPosition(
+                        DragState.VERTICAL_START, v.localPosition)
+                  }
+              : null,
+          onVerticalDragUpdate: videoModel.isFullscreen
+              ? (v) => {
+                    viewModel.dragPosition(
+                        DragState.VERTICAL_UPDATE, v.localPosition)
+                  }
+              : null,
+          onVerticalDragEnd: videoModel.isFullscreen
+              ? (v) =>
+                  {viewModel.dragPosition(DragState.VERTICAL_END, Offset.zero)}
+              : null,
           child: IconTheme(
               data: widget.iconThemeData,
               child: LayoutBuilder(builder: (context, size) {
