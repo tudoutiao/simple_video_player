@@ -176,8 +176,9 @@ class ViewManagetModel extends ChangeNotifier {
   handleTogglePlay() {
     if (_videoManager.videoManagerModel.playState == PlayState.complete) {
       //重播
+      _isShowTitle = false;
       _isShowProgress = false;
-      _isShowPlayButton=false;
+      _isShowPlayButton = false;
       _notify();
     }
   }
@@ -186,6 +187,29 @@ class ViewManagetModel extends ChangeNotifier {
     switch (_videoManager.videoManagerModel.playState) {
       case PlayState.complete:
         {
+          break;
+        }
+      case PlayState.playing:
+        {
+          _showPlayerControlsTimer?.cancel();
+          _isShowControl = !isShowControl;
+          _isShowProgress = true;
+          _isShowPlayButton = true;
+          _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
+            _isShowPlayButton = false;
+            _isShowControl = false;
+            _notify();
+          });
+          _notify();
+          break;
+        }
+      case PlayState.pause:
+        {
+          _showPlayerControlsTimer?.cancel();
+          _isShowControl = !isShowControl;
+          _isShowProgress = true;
+          _isShowPlayButton = true;
+          _notify();
           break;
         }
     }
