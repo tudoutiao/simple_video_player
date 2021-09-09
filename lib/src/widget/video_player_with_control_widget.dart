@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_video_player/src/util/play_state.dart';
 import 'package:simple_video_player/src/util/video_control_util.dart';
 import 'package:video_player/video_player.dart';
 
@@ -128,6 +129,8 @@ class _StateVideoPlayerWithControlWidget
               data: widget.iconThemeData,
               child: LayoutBuilder(builder: (context, size) {
                 return Container(
+                    height: 200,
+                    width: double.infinity,
                     color: widget.backgroundColor,
                     child: DefaultTextStyle(
                       style: widget.textStyle,
@@ -146,8 +149,7 @@ class _StateVideoPlayerWithControlWidget
                             children: <Widget>[
                               if (videoModel.videoPlayerValue!.hasError ==
                                       false &&
-                                  videoModel.videoPlayerValue!.isInitialized ==
-                                      false)
+                                  videoModel.playState == PlayState.prepare)
                                 widget.playerLoadingFallback,
                               if (videoModel.videoPlayerValue!.hasError == true)
                                 widget.playerErrorFallback,
