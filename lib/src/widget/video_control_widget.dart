@@ -38,48 +38,48 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
       return AutoHideChild(
           child: Stack(
         children: [
+          if (viewModel.isShowThum)
+            Positioned.fill(
+              child: Image.asset(
+                widget._videoManager!.thumImage,
+                fit: BoxFit.cover,
+              ),
+            ),
           Positioned(
-              top: 5,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Positioned.fill(
-                  //   child: Image.asset(
-                  //     widget._videoManager!.thumImage,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-                  if (viewModel.isShowBack)
-                    IconButton(
-                      padding: EdgeInsets.all(1),
-                      iconSize: 18,
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        semanticLabel: "back",
-                      ),
-                      onPressed: () {},
-                    ),
-                  if (viewModel.isShowTitle)
-                    Padding(
-                      padding: EdgeInsets.only(top: 5, left: 5),
-                      child: Text(
-                        "第${widget._videoManager!.index}个",
-                        style: TextStyle(fontSize: 15),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  Container(
-                    margin: EdgeInsets.only(right: 15),
-                    child: Row(
-                      children: [
-                        if (viewModel.isSpeedPlaying) Text("2x"),
-                        if (viewModel.isDragPosition) Text("draging"),
-                      ],
-                    ),
-                  )
-                ],
-              )),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (viewModel.isShowBack)
+                IconButton(
+                  padding: EdgeInsets.all(1),
+                  iconSize: 18,
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    semanticLabel: "back",
+                  ),
+                  onPressed: () {},
+                ),
+              if (viewModel.isShowTitle)
+                Padding(
+                  padding: EdgeInsets.only(top: 5, left: 5),
+                  child: Text(
+                    "第${widget._videoManager!.index}个",
+                    style: TextStyle(fontSize: 15),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              Container(
+                margin: EdgeInsets.only(right: 15),
+                child: Row(
+                  children: [
+                    if (viewModel.isSpeedPlaying) Text("2x"),
+                    if (viewModel.isDragPosition) Text("draging"),
+                  ],
+                ),
+              )
+            ],
+          )),
           if (viewModel.isShowPlayButton)
             Container(
               alignment: Alignment.center,

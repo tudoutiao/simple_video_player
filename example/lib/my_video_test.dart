@@ -40,7 +40,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     videoManager = VideoManager(
         videoPlayerController: VideoPlayerController.network(
       'http://img3.chouti.com/f6f8c2f4-dd30-4032-930a-31358e5e6305.mp4',
-    ));
+    ),thumImage:"images/rio_from_above_poster.jpg");
+
   }
 
   @override

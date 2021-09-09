@@ -46,7 +46,6 @@ class _StateMultiVideoPlayerWidget extends State<MultiVideoPlayerWidget> {
     return VisibilityDetector(
       key: ObjectKey(videoManager),
       onVisibilityChanged: (visiblityInfo) {
-        // print("${widget.index}********${visiblityInfo.visibleFraction}");
         if (visiblityInfo.visibleFraction == 1.0) {
           widget.multiVideoManager.addData(videoManager);
         } else {

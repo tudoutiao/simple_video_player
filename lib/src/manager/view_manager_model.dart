@@ -43,6 +43,8 @@ class ViewManagetModel extends ChangeNotifier {
   //全屏时方向切换使用
   bool _isLandscape = true;
 
+  bool _isShowThum = true;
+
   final double THRESHOLDX = 10.0;
   final double THRESHOLDY = 5.0;
   Offset _startDragLocation = Offset.zero;
@@ -65,6 +67,8 @@ class ViewManagetModel extends ChangeNotifier {
   bool get isShowProgress => _isShowProgress;
 
   bool get isLandscape => _isLandscape;
+
+  bool get isShowThum => _isShowThum;
 
   ///
   bool get isShowBack => _isShowBack;
@@ -187,6 +191,7 @@ class ViewManagetModel extends ChangeNotifier {
 
   ///点击播放按钮更新ui
   handleTogglePlay() {
+    _isShowThum = false;
     if (_videoManager.videoManagerModel.playState == PlayState.complete) {
       //重播
       _isShowControl = false;
