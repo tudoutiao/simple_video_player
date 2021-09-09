@@ -23,14 +23,14 @@ class NativeVideoPlayer extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, size) {
-        double aspectRatio = (size.maxHeight == double.infinity ||
-                size.maxWidth == double.infinity)
-            ? (videoPlayerController?.value.isInitialized == true
-                ? videoPlayerController?.value.aspectRatio
-                : aspectRatioWhenLoading!)!
-            : size.maxWidth / size.maxHeight;
+        // double aspectRatio = (size.maxHeight == MediaQuery.of(context).size ||
+        //         size.maxWidth == MediaQuery.of(context).size)
+        //     ? (videoPlayerController?.value.isInitialized == true
+        //         ? videoPlayerController?.value.aspectRatio
+        //         : aspectRatioWhenLoading!)!
+        //     : size.maxWidth / size.maxHeight;
 
-        // double aspectRatio = 0.5;
+        double aspectRatio = 0.5;
 
         return AspectRatio(
           aspectRatio: aspectRatio,

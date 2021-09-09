@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_video_player/src/manager/video_manager.dart';
 import 'package:simple_video_player/src/util/play_state.dart';
@@ -87,7 +88,7 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                 icon: Icon(
                   viewModel.isPlaying
                       ? Icons.pause
-                      : (videoModel.playState==PlayState.complete
+                      : (videoModel.playState == PlayState.complete
                           ? Icons.replay
                           : Icons.play_arrow),
                   semanticLabel: "play/pause/replay",
@@ -264,7 +265,24 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                       },
                     ),
                   ],
-                ))
+                )),
+          if (videoModel.isFullscreen)
+            Positioned(
+              right: 1,
+              bottom: 80,
+              child: IconButton(
+                iconSize: 25,
+                icon: Icon(
+                  viewModel.isLandscape
+                      ? Icons.crop_landscape_sharp
+                      : Icons.crop_portrait_sharp,
+                  semanticLabel: "orientation change",
+                ),
+                onPressed: () {
+                  videoModel.changeOrientation();
+                },
+              ),
+            ),
         ],
       ));
     });

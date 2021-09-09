@@ -40,6 +40,9 @@ class ViewManagetModel extends ChangeNotifier {
   //是否列表播放，屏幕横竖滑屏操作
   bool _isFeed = false;
 
+  //全屏时方向切换使用
+  bool _isLandscape = true;
+
   final double THRESHOLDX = 10.0;
   final double THRESHOLDY = 5.0;
   Offset _startDragLocation = Offset.zero;
@@ -60,6 +63,8 @@ class ViewManagetModel extends ChangeNotifier {
   bool get isSpeedPlaying => _isSpeedPlaying;
 
   bool get isShowProgress => _isShowProgress;
+
+  bool get isLandscape => _isLandscape;
 
   ///
   bool get isShowBack => _isShowBack;
@@ -155,12 +160,19 @@ class ViewManagetModel extends ChangeNotifier {
 
   double getProgressBottom() {
     double marginBottome = -130;
-    if (_videoManager.videoManagerModel.isFullscreen) {
+    if (!_videoManager.videoManagerModel.isFullscreen) return marginBottome;
+    if (isLandscape) {
       marginBottome = [
         _videoManager.screenSize!.height,
         _videoManager.screenSize!.width
       ].reduce(min);
       marginBottome = -marginBottome + 90;
+    } else {
+      marginBottome = [
+        _videoManager.screenSize!.height,
+        _videoManager.screenSize!.width
+      ].reduce(min);
+      marginBottome = -marginBottome * 3 / 2;
     }
     return marginBottome;
   }
@@ -227,7 +239,6 @@ class ViewManagetModel extends ChangeNotifier {
         }
     }
   }
-
 
   ///自然播放时界面更新
   handleChangeStateControlView() {

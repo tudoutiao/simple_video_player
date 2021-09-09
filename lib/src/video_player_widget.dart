@@ -60,6 +60,7 @@ class VideoPlayerWidget extends StatefulWidget {
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   late VideoManager videoManager;
   bool _isFullscreen = false;
+  bool _isLandscape = true;
   OverlayEntry? _overlayEntry;
 
   @override
@@ -88,6 +89,20 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       _switchToFullscreen();
     } else if (_isFullscreen && !videoManager.videoManagerModel.isFullscreen) {
       _exitFullscreen();
+    } else if (videoManager.videoManagerModel.isFullscreen &&
+        _isFullscreen &&
+        _isLandscape == videoManager.viewManagerModel.isLandscape) {
+      if (videoManager.viewManagerModel.isLandscape) {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight
+        ]);
+        _isLandscape = false;
+      } else {
+        SystemChrome.setPreferredOrientations(
+            [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+        _isLandscape = true;
+      }
     }
   }
 
@@ -128,7 +143,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     }
 
     _isFullscreen = false;
-
+    if (!_isLandscape) {
+      videoManager.videoManagerModel.changeOrientation();
+      _isLandscape = true;
+    }
     _overlayEntry?.remove();
     _overlayEntry = null;
     _setPreferredOrientation();

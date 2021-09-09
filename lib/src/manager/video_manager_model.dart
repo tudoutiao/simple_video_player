@@ -138,6 +138,15 @@ class VideoManagerModel extends ChangeNotifier {
     isPlaying ? pause() : play();
   }
 
+  void changeOrientation() {
+    if (_videoManager!.viewManagerModel.isLandscape) {
+      _videoManager!.viewManagerModel._isLandscape = false;
+    } else {
+      _videoManager!.viewManagerModel._isLandscape = true;
+    }
+    _notify();
+  }
+
   /// Play the video.
   Future<void> play() async {
     await videoPlayerController!.play();

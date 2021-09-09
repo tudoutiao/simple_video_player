@@ -129,7 +129,6 @@ class _StateVideoPlayerWithControlWidget
               data: widget.iconThemeData,
               child: LayoutBuilder(builder: (context, size) {
                 return Container(
-                    height: 200,
                     width: double.infinity,
                     color: widget.backgroundColor,
                     child: DefaultTextStyle(
