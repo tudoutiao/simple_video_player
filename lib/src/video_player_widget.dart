@@ -143,9 +143,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     }
 
     _isFullscreen = false;
-    if (!_isLandscape) {
+    _isLandscape = true;
+    if (!videoManager.viewManagerModel.isLandscape) {
       videoManager.videoManagerModel.changeOrientation();
-      _isLandscape = true;
     }
     _overlayEntry?.remove();
     _overlayEntry = null;
