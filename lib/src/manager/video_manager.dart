@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:simple_video_player/src/util/play_state.dart';
 import 'package:simple_video_player/src/util/video_control_util.dart';
+import 'package:universal_html/html.dart';
 import 'package:video_player/video_player.dart';
 import 'package:volume_controller/volume_controller.dart';
 

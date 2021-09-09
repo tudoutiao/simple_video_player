@@ -189,9 +189,13 @@ class ViewManagetModel extends ChangeNotifier {
   handleTogglePlay() {
     if (_videoManager.videoManagerModel.playState == PlayState.complete) {
       //重播
-      _isShowTitle = false;
-      _isShowProgress = false;
-      _isShowPlayButton = false;
+      _isShowControl = false;
+      _notify();
+    } else if (_videoManager.videoManagerModel.playState == PlayState.playing) {
+      _isShowControl = true;
+      _notify();
+    } else if (_videoManager.videoManagerModel.playState == PlayState.pause) {
+      _isShowControl = false;
       _notify();
     }
   }
@@ -217,7 +221,7 @@ class ViewManagetModel extends ChangeNotifier {
       case PlayState.playing:
         {
           _showPlayerControlsTimer?.cancel();
-          _isShowControl = !isShowControl;
+          _isShowControl = true;
           _isShowProgress = true;
           _isShowPlayButton = true;
           _showPlayerControlsTimer = Timer(Duration(seconds: 5), () {
@@ -231,9 +235,7 @@ class ViewManagetModel extends ChangeNotifier {
       case PlayState.pause:
         {
           _showPlayerControlsTimer?.cancel();
-          _isShowControl = !isShowControl;
-          _isShowProgress = true;
-          _isShowPlayButton = true;
+          _isShowControl = true;
           _notify();
           break;
         }
@@ -251,28 +253,23 @@ class ViewManagetModel extends ChangeNotifier {
         }
       case PlayState.prepare:
         {
-          _isShowTitle = false;
-          _isShowPlayButton = false;
-          _isShowProgress = false;
+          _isShowControl = false;
           break;
         }
       case PlayState.playing:
         {
-          _isShowTitle = false;
-          _isShowPlayButton = false;
+          _isShowControl = false;
           break;
         }
       case PlayState.pause:
         {
-          _isShowControl = true;
           _isShowPlayButton = true;
+          _isShowControl = true;
           break;
         }
       case PlayState.complete:
         {
           _isShowControl = true;
-          _isShowProgress = true;
-          _isShowPlayButton = true;
           break;
         }
     }

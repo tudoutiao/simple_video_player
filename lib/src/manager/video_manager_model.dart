@@ -50,6 +50,7 @@ class VideoManagerModel extends ChangeNotifier {
     }
   }
 
+  ///对于此监听，本项目只用于记录自然播放时状态切换
   _videoListener() {
     _videoPlayerValue = videoPlayerController!.value;
     PlayState? state;
@@ -75,11 +76,12 @@ class VideoManagerModel extends ChangeNotifier {
       if (_videoPlayerValue!.position == 0) {
         state = PlayState.replay;
       } else {
-        state == PlayState.pause;
+        state = PlayState.pause;
       }
     }
+
     if (null == state || playState != state) {
-      _playState = state!!;
+      if (null != state) _playState = state;
       _videoManager!.viewManagerModel.handleChangeStateControlView();
     }
 
