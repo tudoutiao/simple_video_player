@@ -38,7 +38,7 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
       return AutoHideChild(
           child: Stack(
         children: [
-          if (viewModel.isShowThum)
+          if (viewModel.isShowThum && !videoModel.isFullscreen)
             Positioned.fill(
               child: Image.asset(
                 widget._videoManager!.thumImage,
@@ -256,7 +256,9 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                     Text(viewModel.getDuration()),
                     IconButton(
                       icon: Icon(
-                        Icons.fullscreen,
+                        videoModel.isFullscreen
+                            ? Icons.fullscreen_exit
+                            : Icons.fullscreen,
                         semanticLabel: "fullscreen",
                       ),
                       onPressed: () {

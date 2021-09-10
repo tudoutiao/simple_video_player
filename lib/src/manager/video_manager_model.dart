@@ -151,6 +151,7 @@ class VideoManagerModel extends ChangeNotifier {
 
   /// Play the video.
   Future<void> play() async {
+    _videoManager!.viewManagerModel._isShowThum = false;
     await videoPlayerController!.play();
     _notify();
   }
@@ -163,9 +164,8 @@ class VideoManagerModel extends ChangeNotifier {
 
   ///列表播放时，移出屏幕，停止播放,
   Future<void> pauseListItem() async {
-    if(!videoPlayerValue!.isInitialized)
-      return;
-    await videoPlayerController!.pause();
+    if (!videoPlayerValue!.isInitialized) return;
+    // await videoPlayerController!.pause();
     _playState = PlayState.init;
     _videoManager!.viewManagerModel._isShowThum = true;
     _videoManager!.viewManagerModel.handleTapVideo();
@@ -201,10 +201,8 @@ class VideoManagerModel extends ChangeNotifier {
 
   dispose() {
     _mounted = false;
-    videoPlayerController?.pause();
     videoPlayerController?.removeListener(_videoListener);
     videoPlayerController?.dispose();
-
     super.dispose();
   }
 }

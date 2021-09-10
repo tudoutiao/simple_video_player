@@ -263,6 +263,7 @@ class ViewManagetModel extends ChangeNotifier {
         }
       case PlayState.playing:
         {
+          _isShowThum = false;
           _isShowControl = false;
           break;
         }
