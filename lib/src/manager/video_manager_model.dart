@@ -165,7 +165,7 @@ class VideoManagerModel extends ChangeNotifier {
   ///列表播放时，移出屏幕，停止播放,
   Future<void> pauseListItem() async {
     if (!videoPlayerValue!.isInitialized) return;
-    // await videoPlayerController!.pause();
+    await videoPlayerController!.pause();
     _playState = PlayState.init;
     _videoManager!.viewManagerModel._isShowThum = true;
     _videoManager!.viewManagerModel.handleTapVideo();
