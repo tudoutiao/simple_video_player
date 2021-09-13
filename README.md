@@ -18,5 +18,7 @@
 
 ## 效果图
 
+视频效果查看screenshots文件夹
+
 ![GitHub Logo](/screenshots/full_screen.png)
 ![GitHub Logo](/screenshots/normal.png)
