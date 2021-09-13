@@ -1,7 +1,7 @@
 # Flutter simple video player
 
 
-## Getting Started
+## 实现功能
 
 
 1、屏幕左侧上下滑动修改屏幕亮度
@@ -13,3 +13,5 @@
 4、长按2倍速播放
 
 5、支持全屏播放
+
+6、列表滑动自动播放
