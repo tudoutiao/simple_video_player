@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with AutomaticKeepAliveClientMixin {
-  final arr = ["MyVideo", "Feeds"];
+  final arr = ["Single", "Feeds"];
 
   @override
   bool get wantKeepAlive => true;
