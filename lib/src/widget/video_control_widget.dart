@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_video_player/src/manager/video_manager.dart';
 import 'package:simple_video_player/src/util/play_state.dart';
@@ -46,40 +45,35 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
               ),
             ),
           Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
               child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (viewModel.isShowBack)
-                IconButton(
-                  padding: EdgeInsets.all(1),
-                  iconSize: 18,
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    semanticLabel: "back",
-                  ),
-                  onPressed: () {},
-                ),
-              if (viewModel.isShowTitle)
-                Padding(
-                  padding: EdgeInsets.only(top: 5, left: 5),
-                  child: Text(
-                    "第${widget._videoManager!.index}个",
-                    style: TextStyle(fontSize: 15),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              Container(
-                margin: EdgeInsets.only(right: 15),
-                child: Row(
-                  children: [
-                    if (viewModel.isSpeedPlaying) Text("2x"),
-                    if (viewModel.isDragPosition) Text("draging"),
-                  ],
-                ),
-              )
-            ],
-          )),
+                children: [
+                  if (viewModel.isShowBack)
+                    IconButton(
+                      padding: EdgeInsets.all(1),
+                      iconSize: 18,
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        semanticLabel: "back",
+                      ),
+                      onPressed: () {},
+                    ),
+                  if (viewModel.isShowTitle)
+                    Padding(
+                      padding: EdgeInsets.only(top: 5, left: 5),
+                      child: Text(
+                        "第${widget._videoManager!.index}个",
+                        style: TextStyle(fontSize: 15),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  if (viewModel.isSpeedPlaying) Text("2x"),
+                  if (viewModel.isDragPosition) Text("draging"),
+                ],
+              )),
           if (viewModel.isShowPlayButton)
             Container(
               alignment: Alignment.center,
@@ -104,9 +98,8 @@ class _VideoControlWidgetState extends State<VideoControlWidget> {
                 bottom: viewModel.getSliderBottome(),
                 top: 60,
                 child: Container(
-                  // color: Colors.red,
                   width: 5,
-                  // height: 100,
+                  height: 100,
                   child: VierticalProgressWidget(
                     flickProgressBarSettings: FlickProgressBarSettings(
                       height: 5,

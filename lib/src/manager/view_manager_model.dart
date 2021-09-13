@@ -310,7 +310,7 @@ class ViewManagetModel extends ChangeNotifier {
   handleControls(bool isShow) {
     if (isShow) {
       _isShowControl = true;
-      // _isShowPlayButton = false;
+      _isShowPlayButton = false;
       _isShowProgress = false;
       _isShowTitle = false;
     } else {
