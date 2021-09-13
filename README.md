@@ -19,4 +19,4 @@
 ## 效果图
 
 ![GitHub Logo](/screenshots/full_screen.png)
-![GitHub Logo](/screenshots/2FE0F91C01B495420B1E1AD5CBFF3D2B.mp4)
+![GitHub Logo](/screenshots/normal.png)
