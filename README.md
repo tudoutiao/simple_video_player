@@ -1,7 +1,7 @@
 # Flutter simple video player
 
 
-## Getting Started
+## 实现功能
 
 
 1、屏幕左侧上下滑动修改屏幕亮度
