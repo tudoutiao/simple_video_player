@@ -1,6 +1,5 @@
-# simple_video_player
+# Flutter simple video player
 
-A simple video player
 
 ## Getting Started
 
