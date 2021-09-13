@@ -15,3 +15,7 @@
 5、支持全屏播放
 
 6、列表滑动自动播放
+
+## 效果图
+
+![GitHub Logo](/screenshots/full_screen.png)
